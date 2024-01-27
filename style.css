@@ -345,6 +345,18 @@ footer {
   transition: background-color 0.7s, color 0.7s; /* Adding transition properties */
 }
 
+.text-us-btn-mobile {
+  display: none;
+  width: 162px;
+  height: 39px;
+  border: none;
+  border-radius: 4px;
+  background-color: #00a3e0;
+  color: #f4f4f4;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.7s, color 0.7s; /* Adding transition properties */
+}
 .text-us-btn:hover {
   background-color: #f4f4f4;
   color: rgb(26, 30, 31);
@@ -566,5 +578,38 @@ footer {
     /* opacity: 0; */
     /* transform: translateX(0); */
     opacity: 1;
+  }
+
+  footer {
+    padding: 40px 30px;
+  }
+
+  .text-us-btn {
+    display: none;
+  }
+  .text-us-btn-mobile {
+    display: block;
+  }
+  .footer-icons-container {
+    flex-direction: column;
+  }
+  .mob-images-and-button-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+  }
+  .tbc-logo {
+    margin: 24px 0 24px 0;
+  }
+  .footer-p {
+    margin-top: 20px;
+  }
+}
+
+/* Change courses width for only mobile */
+@media (max-width: 640px) {
+  .course-container {
+    width: 100%;
   }
 }
