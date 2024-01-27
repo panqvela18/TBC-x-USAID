@@ -8,50 +8,118 @@ const bottom_burger = document.querySelector(".burger-bottom");
 const modal = document.getElementById("modal"); // Declare modal globally
 var prevScrollpos = window.scrollY || window.pageYOffset;
 
+let autoplayInterval;
+
 // Function to move the slider to the next position
 const moveNext = () => {
-  scrollContainer.scrollLeft += 980;
+  const newScrollLeft = scrollContainer.scrollLeft + 980;
+  const maxScrollLeft =
+    scrollContainer.scrollWidth - scrollContainer.clientWidth;
+
+  // Check if scrolling to the next position exceeds the total width
+  if (newScrollLeft > maxScrollLeft) {
+    scrollContainer.scrollLeft = 0; // Go back to the first slide
+  } else {
+    scrollContainer.scrollLeft += 980;
+  }
+
+  // Stop autoplay and resume after 2 seconds
+  stopAndResumeAutoplay();
 };
+
+// Function to switch to a specific slide when a dot is clicked
+const switchToSlide = (index) => {
+  const newScrollLeft = index * 980;
+  scrollContainer.scrollLeft = newScrollLeft;
+
+  // Highlight the active dot
+  highlightActiveDot(index);
+
+  // Stop autoplay and resume after 2 seconds
+  stopAndResumeAutoplay();
+};
+
+// Function to highlight the active dot and remove highlight from others
+const highlightActiveDot = (index) => {
+  dotElements.forEach((dot, i) => {
+    if (i === index) {
+      dot.classList.add("active-dot");
+    } else {
+      dot.classList.remove("active-dot");
+    }
+  });
+};
+
+// Add event listeners for each dot to switch slides
+const dotElements = document.querySelectorAll(".bulet-cont span");
+
+dotElements.forEach((dot, index) => {
+  dot.addEventListener("click", () => {
+    switchToSlide(index);
+  });
+});
+
+const updateActiveDot = () => {
+  const currentIndex = Math.round(scrollContainer.scrollLeft / 980);
+  highlightActiveDot(currentIndex);
+};
+
+// Add event listener for scroll to update the active dot during autoplay
+scrollContainer.addEventListener("scroll", updateActiveDot);
 
 // Function to move the slider to the previous position
 const moveBack = () => {
-  scrollContainer.scrollLeft -= 980;
+  const newScrollLeft = scrollContainer.scrollLeft - 980;
+
+  // Check if scrolling to the previous position goes before the first slide
+  if (newScrollLeft < 0) {
+    scrollContainer.scrollLeft =
+      scrollContainer.scrollWidth - scrollContainer.clientWidth; // Go to the last slide
+  } else {
+    scrollContainer.scrollLeft -= 980;
+  }
+
+  // Stop autoplay and resume after 2 seconds
+  stopAndResumeAutoplay();
+};
+
+// Function to stop autoplay and resume after 2 seconds
+const stopAndResumeAutoplay = () => {
+  stopAutoplay();
+  setTimeout(startAutoplay, 800); // Resume autoplay after 2 seconds
 };
 
 // Add event listeners for manual navigation
 nextBtn.addEventListener("click", moveNext);
 backBtn.addEventListener("click", moveBack);
 
-// Autoplay functionality
-let autoplayInterval;
-
-// Function to start autoplay
-const startAutoplay = () => {
-  autoplayInterval = setInterval(() => {
-    moveNext();
-  }, 2000); // Change the interval (in milliseconds) as needed
-};
-
-// Function to stop autoplay
-const stopAutoplay = () => {
-  clearInterval(autoplayInterval);
-};
-
 // Start autoplay when the page loads
 startAutoplay();
 
-// Pause autoplay when the user interacts with the slider
-scrollContainer.addEventListener("mouseover", stopAutoplay);
-scrollContainer.addEventListener("mouseout", startAutoplay);
+// Autoplay functionality
+function startAutoplay() {
+  // Check if the interval is not already running
+  if (!autoplayInterval) {
+    autoplayInterval = setInterval(() => {
+      moveNext();
+    }, 800); // Change the interval (in milliseconds) as needed
+  }
+}
+
+// Function to stop autoplay
+function stopAutoplay() {
+  clearInterval(autoplayInterval);
+  autoplayInterval = null; // Reset the interval variable
+}
 
 document.addEventListener("DOMContentLoaded", function () {
-  var questions = document.querySelectorAll(".question");
+  let questions = document.querySelectorAll(".question");
 
   questions.forEach(function (question) {
-    var arrow = question.querySelector(".arrow");
+    let arrow = question.querySelector(".arrow");
     question.addEventListener("click", function () {
-      var answer = question.querySelector(".answer");
-      var isOpen = answer.classList.contains("show");
+      let answer = question.querySelector(".answer");
+      let isOpen = answer.classList.contains("show");
 
       // Close all answers
       questions.forEach(function (q) {
@@ -104,7 +172,7 @@ document.onclick = (e) => {
 };
 
 function handleScroll() {
-  var currentScrollPos = window.scrollY || window.pageYOffset;
+  let currentScrollPos = window.scrollY || window.pageYOffset;
 
   if (prevScrollpos > currentScrollPos) {
     document.querySelector("header").style.top = "0";
