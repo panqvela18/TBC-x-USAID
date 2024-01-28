@@ -1,5 +1,6 @@
 @import url("https://fonts.cdnfonts.com/css/helvetica-neue-55");
 
+/* Global styles */
 * {
   box-sizing: border-box;
   padding: 0;
@@ -11,6 +12,7 @@ img {
   user-select: none;
 }
 
+/* Header */
 header {
   background-color: #1a1e1f;
   display: flex;
@@ -58,6 +60,8 @@ header {
   font-family: "Helvetica Neue", sans-serif;
   text-decoration: none;
 }
+
+/* Main background*/
 
 .main-background-image {
   background-image: url("./assets/main-bg.webp");
@@ -111,6 +115,8 @@ header {
 .p-learn-more:hover {
   color: white;
 }
+
+/* Courses section */
 
 .courses-section {
   background-color: #161616;
@@ -256,6 +262,7 @@ header {
 .bulet-cont span.active-dot {
   color: rgba(85, 85, 85, 0.7); /* Set your desired styles for the active dot */
 }
+
 /* Accordion */
 
 .accordion-section {
@@ -362,7 +369,7 @@ footer {
   color: #f4f4f4;
   font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.7s, color 0.7s; /* Adding transition properties */
+  transition: background-color 0.7s, color 0.7s;
 }
 
 .text-us-btn-mobile {
@@ -375,7 +382,7 @@ footer {
   color: #f4f4f4;
   font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.7s, color 0.7s; /* Adding transition properties */
+  transition: background-color 0.7s, color 0.7s;
 }
 .text-us-btn:hover {
   background-color: #f4f4f4;
@@ -445,20 +452,10 @@ footer {
 .sidemenu {
   display: none;
 }
-@keyframes slideIn {
-  0% {
-    opacity: 0;
-    transform: translateX(150px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
 
 /* Responsive */
 
-@media (max-width: 1023px) {
+@media (max-width: 1024px) {
   .burger {
     display: block;
     position: absolute;
@@ -578,7 +575,7 @@ footer {
     left: 0;
     width: 100%;
     height: 100%;
-    backdrop-filter: brightness(50%); /* Adjust the blur amount as needed */
+    backdrop-filter: brightness(50%);
     z-index: 5;
   }
 
@@ -597,9 +594,6 @@ footer {
     display: block;
   }
   .sidemenu.sidemenu-active {
-    /* transform: translateX(150px); */
-    /* opacity: 0; */
-    /* transform: translateX(0); */
     opacity: 1;
   }
 

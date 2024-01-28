@@ -16,30 +16,25 @@ const moveNext = () => {
   const maxScrollLeft =
     scrollContainer.scrollWidth - scrollContainer.clientWidth;
 
-  // Check if scrolling to the next position exceeds the total width
   if (newScrollLeft > maxScrollLeft) {
     scrollContainer.scrollLeft = 0; // Go back to the first slide
   } else {
     scrollContainer.scrollLeft += 980;
   }
 
-  // Stop autoplay and resume after 2 seconds
   stopAndResumeAutoplay();
 };
 
-// Function to switch to a specific slide when a dot is clicked
 const switchToSlide = (index) => {
   const newScrollLeft = index * 980;
   scrollContainer.scrollLeft = newScrollLeft;
 
-  // Highlight the active dot
   highlightActiveDot(index);
 
-  // Stop autoplay and resume after 2 seconds
+  // Stop autoplay and resume
   stopAndResumeAutoplay();
 };
 
-// Function to highlight the active dot and remove highlight from others
 const highlightActiveDot = (index) => {
   dotElements.forEach((dot, i) => {
     if (i === index) {
@@ -74,19 +69,19 @@ const moveBack = () => {
   // Check if scrolling to the previous position goes before the first slide
   if (newScrollLeft < 0) {
     scrollContainer.scrollLeft =
-      scrollContainer.scrollWidth - scrollContainer.clientWidth; // Go to the last slide
+      scrollContainer.scrollWidth - scrollContainer.clientWidth;
   } else {
     scrollContainer.scrollLeft -= 980;
   }
 
-  // Stop autoplay and resume after 2 seconds
+  // Stop autoplay and resume
   stopAndResumeAutoplay();
 };
 
-// Function to stop autoplay and resume after 2 seconds
+// Function to stop autoplay and resume
 const stopAndResumeAutoplay = () => {
   stopAutoplay();
-  setTimeout(startAutoplay, 800); // Resume autoplay after 2 seconds
+  setTimeout(startAutoplay, 800); // Resume autoplay
 };
 
 // Add event listeners for manual navigation
@@ -102,14 +97,14 @@ function startAutoplay() {
   if (!autoplayInterval) {
     autoplayInterval = setInterval(() => {
       moveNext();
-    }, 800); // Change the interval (in milliseconds) as needed
+    }, 800);
   }
 }
 
 // Function to stop autoplay
 function stopAutoplay() {
   clearInterval(autoplayInterval);
-  autoplayInterval = null; // Reset the interval variable
+  autoplayInterval = null;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
